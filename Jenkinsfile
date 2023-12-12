@@ -22,7 +22,17 @@ pipeline{
 
         stage('Publish'){
             steps{
-                dotnetPublish configuration: 'Release', project: 'DotnetTestDrivenDev', sdk: 'dotnet7', selfContained: false, outputDirectory: 'version/publis-${BUILD_ID}.zip'
+                dotnetPublish configuration: 'Release', project: 'DotnetTestDrivenDev', sdk: 'dotnet7', selfContained: false, outputDirectory: 'version/publish-${BUILD_ID}'
+            }
+        }
+        stage('archiveArtifacts'){
+            steps{
+                archiveArtifacts artifacts: 'version/publish-${BUILD_ID}', followSymlinks: false
+            }
+        }
+        stage('cleanup'){
+            steps{
+                deleteDir()
             }
         }
 
