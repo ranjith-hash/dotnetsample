@@ -1,46 +1,17 @@
 pipeline{
-
     agent any
 
     stages{
-        stage("Checkout"){
+        stage('restore'){
             steps{
-                git branch: 'main', url: "https://github.com/ranjith-hash/dotnetsample.git"
-                
-            }
-            
-            
-        }
-
-        stage("Dotnet Restore"){
-            steps{
-                scripts{
-                    sh 'echo "sample"'
-                    
-                }
+                sh 'echo sampleapp'
             }
         }
 
-        stage("Dotnet Build"){
+        stage('Build'){
             steps{
-                scripts{
-                    sh 'echo "sample"'
-
-                }
+                sh 'echo sampleapp2'
             }
         }
-
-        stage("Dotnet publish"){
-            steps{
-                scripts{
-                    sh 'echo "sample"'
-                    
-                }
-            }
-        }
-
-
-
-
     }
 }
