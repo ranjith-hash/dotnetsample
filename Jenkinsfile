@@ -20,6 +20,12 @@ pipeline{
             }
         }
 
+        stage('Unit Test'){
+            steps{
+                dotnetTest configuration: 'Release', project: 'DotnetTestDrivenDev.Test', sdk: 'dotnet7'
+            }
+        }
+
         stage('Publish'){
             steps{
                 dotnetPublish configuration: 'Release', project: 'DotnetTestDrivenDev', sdk: 'dotnet7', selfContained: false, outputDirectory: 'version/publish-${BUILD_ID}'
