@@ -2,13 +2,13 @@ pipeline{
     agent any
 
     stages{
-        stage('checkout'){
+        stage('Checkout'){
             steps{
                 git branch: 'main', url: 'https://github.com/ranjith-hash/dotnetsample.git'
             }
         }
 
-        stage('restore'){
+        stage('Restore'){
             steps{
                 dotnetRestore project: 'DotnetTestDrivenDev', sdk: 'dotnet7'
             }
@@ -22,7 +22,7 @@ pipeline{
 
         stage('Publish'){
             steps{
-                dotnetPublish configuration: 'Release', project: 'DotnetTestDrivenDev', sdk: 'dotnet7', selfContained: false
+                dotnetPublish configuration: 'Release', project: 'DotnetTestDrivenDev', sdk: 'dotnet7', selfContained: false, outputDirectory: 'version/publis-${BUILD_ID}.zip'
             }
         }
 
