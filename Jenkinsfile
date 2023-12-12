@@ -29,7 +29,7 @@ pipeline{
             steps{
                 sh 'pwd'
                 sh 'ls'
-                archiveArtifacts artifacts: 'version/publish-${BUILD_ID}', followSymlinks: false
+                archiveArtifacts artifacts: "version/publish-${BUILD_ID}", followSymlinks: false
             }
         }
         stage('cleanup'){
