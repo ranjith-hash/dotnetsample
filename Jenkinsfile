@@ -27,6 +27,8 @@ pipeline{
         }
         stage('archiveArtifacts'){
             steps{
+                sh 'pwd'
+                sh 'ls'
                 archiveArtifacts artifacts: 'version/publish-${BUILD_ID}', followSymlinks: false
             }
         }
