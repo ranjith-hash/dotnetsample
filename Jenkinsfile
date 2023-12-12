@@ -1,9 +1,9 @@
 pipeline {
     agent any
 
-    environment {
-        DOTNET_SDK_VERSION = 'dotnet7' // Set the .NET SDK version
-    }
+    // environment {
+    //     DOTNET_SDK_VERSION = 'dotnet7' // Set the .NET SDK version
+    // }
 
     stages {
         stage('Checkout') {
@@ -14,7 +14,7 @@ pipeline {
 
         stage('Dotnet Restore'){
             steps{
-                dotnetRestore project: 'DotnetTestDrivenDev', sdk: ${DOTNET_SDK_VERSION}
+                dotnetRestore project: 'DotnetTestDrivenDev', sdk: 'dotnet7'
             }
         }
 
@@ -25,7 +25,7 @@ pipeline {
                     
 
                     // Build the .NET application
-                    dotnetBuild configuration: 'Release', project: 'DotnetTestDrivenDev', sdk: ${DOTNET_SDK_VERSION}
+                    dotnetBuild configuration: 'Release', project: 'DotnetTestDrivenDev', sdk: 'dotnet7'
                 }
             }
         }
@@ -34,7 +34,7 @@ pipeline {
             steps {
                 script {
                     // Run tests for the .NET application
-                   dotnetTest configuration: 'Release', project: 'DotnetTestDrivenDev.Test', resultsDirectory: 'results', sdk: ${DOTNET_SDK_VERSION}
+                   dotnetTest configuration: 'Release', project: 'DotnetTestDrivenDev.Test', resultsDirectory: 'results', sdk: 'dotnet7'
                 }
             }
         }
@@ -44,7 +44,7 @@ pipeline {
                 script {
                     // Publish the .NET application
                     // sh "dotnet publish DotnetTestDrivenDev/ -c Release -o ./publish"
-                    dotnetPublish configuration: 'Release', project: 'DotnetTestDrivenDev', sdk: ${DOTNET_SDK_VERSION}, selfContained: false
+                    dotnetPublish configuration: 'Release', project: 'DotnetTestDrivenDev', sdk: 'dotnet7', selfContained: false
                 }
             }
         }
