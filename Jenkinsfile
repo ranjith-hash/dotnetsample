@@ -9,15 +9,15 @@ pipeline{
         }
 
         stage("Dotnet Restore"){
-            sh "echo restore"
+            sh 'echo "sample"'
         }
 
         stage("Dotnet Build"){
-            sh "echo build"
+            sh 'echo "sample"'
         }
 
         stage("Dotnet publish"){
-            sh "echo publish"
+            sh 'echo "sample"'
         }
 
 
