@@ -4,20 +4,39 @@ pipeline{
 
     stages{
         stage("Checkout"){
-            git branch: 'main', url: "https://github.com/ranjith-hash/dotnetsample.git"
+            steps{
+                git branch: 'main', url: "https://github.com/ranjith-hash/dotnetsample.git"
+                
+            }
+            
             
         }
 
         stage("Dotnet Restore"){
-            sh 'echo "sample"'
+            steps{
+                scripts{
+                    sh 'echo "sample"'
+                    
+                }
+            }
         }
 
         stage("Dotnet Build"){
-            sh 'echo "sample"'
+            steps{
+                scripts{
+                    sh 'echo "sample"'
+
+                }
+            }
         }
 
         stage("Dotnet publish"){
-            sh 'echo "sample"'
+            steps{
+                scripts{
+                    sh 'echo "sample"'
+                    
+                }
+            }
         }
 
 
