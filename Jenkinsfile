@@ -30,11 +30,6 @@ pipeline{
                 archiveArtifacts artifacts: "version/publish-${BUILD_ID}/**/*", followSymlinks: false
             }
         }
-        stage('cleanup'){
-            steps{
-                deleteDir()
-            }
-        }
 
     }
 }
