@@ -29,6 +29,7 @@ pipeline{
             steps{
                 sh 'pwd'
                 sh 'ls'
+                sh 'ls version/'
                 archiveArtifacts artifacts: "version/publish-${BUILD_ID}", followSymlinks: false
             }
         }
