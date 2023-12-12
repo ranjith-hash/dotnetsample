@@ -4,14 +4,21 @@ pipeline{
     stages{
         stage('restore'){
             steps{
-                sh 'echo sampleapp'
+                dotnetRestore project: 'DotnetTestDrivenDev', sdk: 'dotnet7'
             }
         }
 
         stage('Build'){
             steps{
-                sh 'echo sampleapp2'
+                dotnetBuild configuration: 'Release', project: 'DotnetTestDrivenDev', sdk: 'dotnet7'
             }
         }
+
+        stage('Publish'){
+            steps{
+                dotnetPublish configuration: 'Release', project: 'DotnetTestDrivenDev', sdk: 'dotnet7', selfContained: false
+            }
+        }
+
     }
 }
