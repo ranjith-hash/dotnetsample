@@ -33,6 +33,7 @@ pipeline{
         }
         stage('Deploy to webserver'){
             steps{
+                sh 'publish-${BUILD_ID}.zip version/publish-${BUILD_ID}'
                 sshPublisher(
                     continueOnError: false, failOnError: true,
                     publishers:[
@@ -40,11 +41,12 @@ pipeline{
                         configName: "webserver",
                         verbose: true,
                         transfers: [
-                            sshTransfer(sourceFiles: 'version/publish-${BUILD_ID}'),
+                            sshTransfer(sourceFiles: 'publish-${BUILD_ID}', remoteDirectory: 'webapps'),
                         ]
                     )
                     ]
                 )
+                sh 'rm -rf publish-${BUILD_ID}.zip'
                 
             }
         }
