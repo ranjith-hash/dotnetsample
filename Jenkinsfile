@@ -32,11 +32,20 @@ pipeline{
             }
         }
         stage('Deploy to webserver'){
-            steps{
-                script{
-                    sshPublisher configName:'webserver', sourceFiles:'version/publish-${BUILD_ID}' , remoteDirectory:'webapps'
-
-                }
+            steps([$class: 'BapSshPromotionPublisherPlugin']){
+                sshPublisher(
+                    continueOnError: false, failOnError: true,
+                    publishers:[
+                        sshPublisherDesc(
+                        configName: "webserver",
+                        verbose: true,
+                        transfers: [
+                            sshTransfer(sourceFiles: 'version/publish-${BUILD_ID}'),
+                        ]
+                    )
+                    ]
+                )
+                
             }
         }
 
