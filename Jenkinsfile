@@ -54,7 +54,7 @@ pipeline{
 
         stage('archiveArtifacts'){
             steps{
-                archiveArtifacts artifacts: "version/publish-${BUILD_ID}/**/*", followSymlinks: false
+                archiveArtifacts artifacts: "publish-${BUILD_ID}/**/*", followSymlinks: false
             }
         }
 
