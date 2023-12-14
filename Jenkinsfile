@@ -28,7 +28,7 @@ pipeline{
 
         stage('Publish'){
             steps{
-                dotnetPublish configuration: 'Release', project: 'DotnetTestDrivenDev', sdk: 'dotnet7', selfContained: false, outputDirectory: 'version/publish-${BUILD_ID}'
+                dotnetPublish configuration: 'Release', project: 'DotnetTestDrivenDev', sdk: 'dotnet7', selfContained: false, outputDirectory: 'publish-${BUILD_ID}'
             }
         }
         stage('Deploy to webserver'){
@@ -41,7 +41,8 @@ pipeline{
                         configName: "webserver",
                         verbose: true,
                         transfers: [
-                            sshTransfer(sourceFiles: 'version/publish-${BUILD_ID}/**/*', remoteDirectory: 'webapps'),
+                            sshTransfer(execCommand: 'rm -rf webapps/*'),
+                            sshTransfer(sourceFiles: 'publish-${BUILD_ID}/**/*', remoteDirectory: 'webapps'),
                         ]
                     )
                     ]
