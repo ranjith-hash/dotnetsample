@@ -34,7 +34,7 @@ pipeline{
         stage('Deploy to webserver'){
             steps{
                 script{
-                    sshPublisher configName:'webserver' sourceFiles:'version/publish-${BUILD_ID}'  remoteDirectory:'webapps'
+                    sshPublisher configName:'webserver', sourceFiles:'version/publish-${BUILD_ID}' , remoteDirectory:'webapps'
 
                 }
             }
