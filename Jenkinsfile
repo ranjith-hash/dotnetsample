@@ -46,7 +46,7 @@ pipeline{
                     )
                     ]
                 )
-                sh 'rm -rf publish-${BUILD_ID}.zip'
+                // sh 'rm -rf publish-${BUILD_ID}.zip'
                 
             }
         }
