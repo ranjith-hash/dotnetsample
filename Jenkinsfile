@@ -32,7 +32,7 @@ pipeline{
             }
         }
         stage('Deploy to webserver'){
-            steps([$class: 'BapSshPromotionPublisherPlugin']){
+            steps{
                 sshPublisher(
                     continueOnError: false, failOnError: true,
                     publishers:[
