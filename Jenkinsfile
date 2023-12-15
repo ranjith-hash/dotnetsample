@@ -33,7 +33,7 @@ pipeline{
         }
         stage('Deploy to webserver'){
             steps{
-               
+               sh 'zip -r artifacts-${BUILD_ID}.zip publish-${BUILD_ID}'
                 sshPublisher(
                     continueOnError: false, failOnError: true,
                     publishers:[
@@ -41,8 +41,9 @@ pipeline{
                         configName: "webserver",
                         verbose: true,
                         transfers: [
-                            sshTransfer(execCommand: 'rm -rf webapps/*'),
-                            sshTransfer(sourceFiles: 'publish-${BUILD_ID}/**/*', remoteDirectory: 'webapps'),
+                            
+                            // sshTransfer(sourceFiles: 'publish-${BUILD_ID}/**/*', remoteDirectory: 'webapps'),
+                            sshTransfer(sourceFiles: 'artifacts-${BUILD_ID}.zip', remoteDirectory: 'webapps')
                         ]
                     )
                     ]
