@@ -33,7 +33,9 @@ pipeline{
         }
         stage('Deploy to webserver'){
             steps{
-                def remoteCommand = '''
+                script{
+
+                    def remoteCommand = '''
                         #!/bin/bash
                         echo "Executing remote commands..."
                         rm -rf webapps/site/*
@@ -60,6 +62,9 @@ pipeline{
                     )
                     ]
                 )
+
+                }
+                
                 // sh 'rm -rf publish-${BUILD_ID}.zip'
                 
             }
