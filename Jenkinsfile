@@ -55,7 +55,7 @@ pipeline{
                             
                             // sshTransfer(sourceFiles: 'publish-${BUILD_ID}/**/*', remoteDirectory: 'webapps'),
                             sshTransfer(sourceFiles: 'artifacts-${BUILD_ID}.zip', remoteDirectory: 'webapps/tmp')
-                            sshPublisher(execCommand: remoteCommand)
+                            sshTransfer(execCommand: remoteCommand)
                         ]
                     )
                     ]
