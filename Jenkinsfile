@@ -33,6 +33,17 @@ pipeline{
         }
         stage('Deploy to webserver'){
             steps{
+                def remoteCommand = '''
+                        #!/bin/bash
+                        echo "Executing remote commands..."
+                        rm -rf webapps/site/*
+                        unzip webapps/tmp/artifacts-${BUILD_ID}.zip -d webapps/tmp/
+                        cp -r webapps/tmp/publish-${BUILD_ID}/* webapps/site
+                        echo "Command 2"
+                        echo "Command 3"
+                        # Add more commands as needed
+                    '''
+
                sh 'zip -r artifacts-${BUILD_ID}.zip publish-${BUILD_ID}'
                 sshPublisher(
                     continueOnError: false, failOnError: true,
@@ -43,7 +54,8 @@ pipeline{
                         transfers: [
                             
                             // sshTransfer(sourceFiles: 'publish-${BUILD_ID}/**/*', remoteDirectory: 'webapps'),
-                            sshTransfer(sourceFiles: 'artifacts-${BUILD_ID}.zip', remoteDirectory: 'webapps')
+                            sshTransfer(sourceFiles: 'artifacts-${BUILD_ID}.zip', remoteDirectory: 'webapps/tmp')
+                            sshPublisher(execCommand: remoteCommand)
                         ]
                     )
                     ]
